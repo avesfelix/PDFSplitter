@@ -9,7 +9,6 @@ internal class Program
         // specify the input pdf file
         Console.WriteLine("Please provide the filepath for the original PDF file - formatted as per example:");
         Console.WriteLine("C:\\Documents\\Pdfs\\input.pdf");
-        // string input = "C:\\Users\\avesf\\Documents\\App Testing\\PDF splitter\\input.pdf";
         string? input = Console.ReadLine();
         if (string.IsNullOrEmpty(input))
         {
