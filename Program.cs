@@ -40,16 +40,16 @@ internal class Program
             if (i % pagesPerFile == 1)
             {
                 {
-                    PdfPage page = document.GetPage(i);
                     string text = PdfTextExtractor.GetTextFromPage(document.GetPage(i), strategy);
-                    int index = text.IndexOf("Account Number: ");
-                    if (index > 0)
+                    int startIndex = text.IndexOf("Account number: ") + "Account number: ".Length;
+                    int endIndex = text.IndexOf(' ', startIndex);
+                    if (endIndex > 0)
                     {
-                        string accountNumber = text.Substring(index + 16, 10);
+                        string accountNumber = text.Substring(startIndex, endIndex - startIndex);
                         // add the page and the remainder of the group to a new file
                         PdfDocument newDocument = new PdfDocument(new PdfWriter(output + "\\" + accountNumber + ".pdf"));
                         document.CopyPagesTo(i, i + (pagesPerFile - 1), newDocument);
-                        Console.WriteLine(newDocument.GetDocumentInfo().GetTitle());
+                        Console.WriteLine("New File Created: " + output + "\\" + accountNumber + ".pdf");
                         newDocument.Close();
                     }
 
